@@ -33,11 +33,12 @@ To link an account via the sandbox environment:
 3. Username is `user_good`
 4. Password is `pass_good`
 
-Out of scope: 
+Bonus/Nice to haves:
 1. Supporting multiple Plaid linked accounts
 2. Making it look pretty, responsive etc. 
+3. Viewing already claimed purchases
 
-The focus of this exercise is to see how you can build something functional end-to-end. By the end of this, you will have created or modified data models, apis and views/components. Please add unit tests only to the code you're introducing. 
+By the end of this, you will have created or modified data models, apis and views/components. Please add unit tests only to the code you're introducing.
 
 Feel free to use any publicly available resources, libraries, etc. that helps you accomplish this coding challenge!
 
