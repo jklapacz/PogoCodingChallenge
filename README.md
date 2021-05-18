@@ -40,7 +40,7 @@ The focus of this exercise is to see how you can build something functional end-
 
 Feel free to use any publicly available resources, libraries, etc. that helps you accomplish this coding challenge!
 
-Ran into issues or have questions? Email shikhar@joinpogo.com
+Run into issues or have questions? Email shikhar@joinpogo.com
 
 <br>
 
