@@ -17,6 +17,7 @@ By the end of this exercise, a user should be able to:
 2. View eligible purchases from the last 60 days that are available to claim. 
 3. Each eligible purchase should have a point value associated with it and a user should be able claim points associated with each purchase.
 4. The user should see their point total increase as they claim more purchases. 
+5. The claimed purchase should disappear from the list of purchases to claim.
 
 How to determine if a transaction/purchase is eligible for points:
 1. The `amount` field is > 0
