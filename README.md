@@ -58,7 +58,7 @@ Run into issues or have questions? Email shikhar@joinpogo.com
 
   [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
-- ## Clone the repository
+- ## Clone the repository (don't fork)
 
 ```bash
     git clone https://github.com/shikharmohan/PogoCodingChallenge.git
