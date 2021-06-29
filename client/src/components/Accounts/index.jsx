@@ -10,6 +10,8 @@ import {
 } from '../../store/actions/account';
 import { logoutUser } from '../../store/actions/auth';
 
+import { ClaimedPurchases } from './ClaimedPurchases';
+
 class Accounts extends Component {
   componentDidMount() {
     const { accounts, getTransactions } = this.props;
@@ -132,9 +134,7 @@ class Accounts extends Component {
               />
             </React.Fragment>
             <hr style={{ marginTop: '2rem', opacity: '.2' }} />
-            <h5>
-              <b>Purchases to Claim</b>
-            </h5>
+            <ClaimedPurchases />
           </div>
         </div>
     );
