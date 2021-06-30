@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Fab from "@material-ui/core/Fab";
+import { Button } from "@material-ui/core";
 
 import { PointSystem } from "../../utils/pointSystem";
 
@@ -28,45 +28,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const categoryMap = {
+  Books: "📚",
+  Entertainment: "🍷",
+  'Food and Drink': "🍲",
+  Shopping: "🛍️",
+  Travel: "✈️",
+  Unknown: "❓",
+};
+const catToEmoji = (category) => categoryMap[category] || category;//["Unknown"];
+
 function ClaimListItem(props) {
   const classes = useStyles();
   const { points, name, amount, date } = props.purchase;
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item xs sm container direction="column">
-            <Grid item xs>
-              <Typography variant="body2" gutterBottom>
-                {points}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                PTS
+        <Grid xs container spacing={4} alignItems="center">
+          <Grid item>
+            <Typography variant="h4">{points}</Typography>
+            <Typography variant="body1" color="textSecondary">
+              PTS
+            </Typography>
+          </Grid>
+          <Grid item xs sm container>
+            <Grid
+              item
+              xs
+              container
+              direction="column"
+              spacing={2}
+              alignItems="flex-start"
+              justify="flex"
+            >
+              <Typography variant="h5">{name}</Typography>
+              <Typography color="secondary" variant="caption">
+                {catToEmoji(props.purchase.category)} &nbsp;|&nbsp; ${amount}{" "}
+                &nbsp;|&nbsp; {date}
               </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs={8} container direction="column" spacing={2}>
-              <Grid item>
-                <Typography variant="body2">
-                  {name}
-                </Typography>
-                <Typography variant="body2">
-                  {amount}
-                </Typography>
-                <Typography variant="body2">
-                  {date}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Fab
-                variant="extended"
-                onClick={props.onClick}
-              >
-                Redeem
-              </Fab>
-            </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color={props.redeemed ? "secondary" : "primary"}
+              onClick={props.onClick}
+            >
+              {props.redeemed ? 'Unredeem' : 'Redeem'}
+            </Button>
           </Grid>
         </Grid>
       </Paper>
@@ -76,17 +85,23 @@ function ClaimListItem(props) {
 
 export const ClaimedPurchases = ({ data } = { data: [] }) => {
   const [redeemedOffers, setRedeemedOffers] = React.useState([]);
-  const isRedeemed = React.useCallback((purchase) => {
-    return redeemedOffers.find(p => p.id === purchase.id)
-  }, [redeemedOffers]);
+  const isRedeemed = React.useCallback(
+    (purchase) => {
+      return redeemedOffers.find((p) => p.id === purchase.id);
+    },
+    [redeemedOffers]
+  );
 
   const [redeemableOffers, setRedeemableOffers] = React.useState([]);
-  const isRedeemable = React.useCallback((purchase) => {
-    return PointSystem.eligibleForPoints(purchase) && !isRedeemed(purchase) 
-  }, [isRedeemed])
+  const isRedeemable = React.useCallback(
+    (purchase) => {
+      return PointSystem.eligibleForPoints(purchase) && !isRedeemed(purchase);
+    },
+    [isRedeemed]
+  );
 
   React.useEffect(() => {
-    setRedeemableOffers([...data].filter(isRedeemable))
+    setRedeemableOffers([...data].filter(isRedeemable));
   }, [setRedeemableOffers, data, isRedeemable]);
 
   const [redeemedPoints, setRedeemedPoints] = React.useState(0);
@@ -99,11 +114,11 @@ export const ClaimedPurchases = ({ data } = { data: [] }) => {
   );
   const unredeem = React.useCallback(
     (purchase) => {
-      if (redeemedOffers.find(p => p.id === purchase.id)) {
-        const idx = redeemedOffers.findIndex(p => p.id === purchase.id)
+      if (redeemedOffers.find((p) => p.id === purchase.id)) {
+        const idx = redeemedOffers.findIndex((p) => p.id === purchase.id);
         setRedeemedPoints(redeemedPoints - purchase.points);
-        const newArr = redeemedOffers.slice()
-        newArr.splice(idx, 1)
+        const newArr = redeemedOffers.slice();
+        newArr.splice(idx, 1);
         setRedeemedOffers(newArr);
       }
     },
@@ -118,23 +133,29 @@ export const ClaimedPurchases = ({ data } = { data: [] }) => {
     <div>
       <h5>Claimed Offers</h5>
       <br />
-      <ul>
-      </ul>
-        {redeemedOffers.map((purchase) => {
-          return (
-            <ClaimListItem purchase={purchase} onClick={() => unredeem(purchase)} redeemed />
-          );
-        })}
+      <ul></ul>
+      {redeemedOffers.map((purchase) => {
+        return (
+          <ClaimListItem
+            purchase={purchase}
+            onClick={() => unredeem(purchase)}
+            redeemed
+          />
+        );
+      })}
       <br />
       <h5>
-        <b>Purchases to Claim</b> (last 14 days)
+        <b>Purchases to Claim</b> (last 30 days)
       </h5>
       <br />
       <b>{redeemedPoints} points redeemed!</b>
       <ul>
         {redeemableOffers.map((purchase) => {
           return (
-            <ClaimListItem purchase={purchase} onClick={() => redeem(purchase)} />
+            <ClaimListItem
+              purchase={purchase}
+              onClick={() => redeem(purchase)}
+            />
           );
         })}
       </ul>

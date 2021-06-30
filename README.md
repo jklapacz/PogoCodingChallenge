@@ -1,3 +1,33 @@
+# Note to reviewer:
+
+Hello! It's a pleasure to make your acquaintence! To make your review process more streamlined let me give you a few highlights:
+
+## Completed Goals
+- [x] See the total number of redeemed points 
+- [x] View eligible purchases to redeem points for
+- [x] Show point values associated with each purchase
+- [x] Point total increases when redeeming offers
+- [x] Redeemed purchase disappears from list of offers
+
+### Optional
+- [x] Multiple Plaid linked accounts
+- [~] Aesthetics
+  - (Partially done)
+  - Redemption offer list looks aesthetically pleasing (uses Material-UI elements) however some "fit-and-finish" is left to be implemented.
+- [~] Build tooling improvements
+  - NOTE: Full disclosure I went down a bit of a rabbit hole when trying to decrease the feedback-loop time when making changes to the code. On my laptop (Macbook Pro M1) each rebuild took 1-2 minutes which made me frustrated. I work on problems like this at work so I wanted to try my hand at improving this.
+  - In the past esbuild has been amazing for how powerful and simple of a build tool it is. Normally I deal with the details of the build config so `react-scripts` was a bit new to me. I wanted a drop-in replacement for `react-scripts` which would use `esbuild` instead of `babel`+`webpack`.
+  - The server side code was easily handled by `esbuild`, build times feel instant
+  - `@craco/craco` claims to be a create-react-app using esbuild; toy project worked but compilation hit module resolution snags in the react app.
+  - In general `esbuild` can replace a lot of the tooling which results in faster feedback loops and lighter containers.
+
+### Misc.
+
+I took an approach of minimizing complexity in the feature (e.g requiring many dependencies...) so I opted for a pure React approach.
+
+A further refinement would probably lend to a refactor where we use a `useReducer` state update function (or properly integrate with `redux`...) 
+
+
 # Pogo Coding Challenge
 
 In the Pogo mobile app, we integrate with Plaid to pull a user's purchase data and reward them with points. The core mechanism in the Pogo mobile is app is the Claim Feed. This is a feed of recent purchases made by the user and each row in the claim feed has the purchase details as well as the amount of points earned. Users can earn points by pressing the claim button on each purchase. 

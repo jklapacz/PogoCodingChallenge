@@ -14,10 +14,12 @@ export const getTransactions = () => dispatch => {
     .then(res => {
       let transactions = [];
       const accounts = res.data;
+      console.table(accounts)
       accounts.forEach(account => {
         transactions = transactions.concat(account.transactions);
       });
       
+      console.table(transactions)
       dispatch({
         type: GET_TRANSACTIONS,
         payload: transactions,

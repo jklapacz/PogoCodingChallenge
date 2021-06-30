@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eux
+
+fromext="${1}"
+toext="${2}"
+
+for f in *.$fromext; do 
+    mv -- "$f" "${f%.$fromext}.$toext"
+done
