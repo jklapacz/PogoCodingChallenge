@@ -5,12 +5,12 @@ import { urlencoded, json } from 'body-parser';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 
-import './database/index';
-import setup from './config/passport';
+import './database/index.js';
+import setup from './config/passport.js';
 
 // route
-import usersRoutes from './routes/users';
-import plaidRoutes from './routes/plaid';
+import usersRoutes from './routes/users.js';
+import plaidRoutes from './routes/plaid.js';
 
 const app = express();
 

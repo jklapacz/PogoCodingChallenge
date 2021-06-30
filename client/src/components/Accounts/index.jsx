@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table'; // https://mbrn.github.io/material-table/#/
+import { PointSystem } from '../../utils/pointSystem'
 
 import {
   getTransactions,
@@ -77,6 +78,8 @@ class Accounts extends Component {
           category: transaction.category[0],
           name: transaction.name,
           amount: transaction.amount,
+          points: PointSystem.calculatePoints(transaction),
+          id: btoa(transaction.name+transaction.date+transaction.amount)
         });
     });
 
@@ -134,7 +137,7 @@ class Accounts extends Component {
               />
             </React.Fragment>
             <hr style={{ marginTop: '2rem', opacity: '.2' }} />
-            <ClaimedPurchases />
+            <ClaimedPurchases data={transactionsData} />
           </div>
         </div>
     );

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eux
+
+esbuild src/index.js --bundle --platform=node --outfile=dist/index.js --target=node14.2 \
+--external:mongodb-client-encryption

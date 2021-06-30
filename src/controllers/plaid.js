@@ -1,8 +1,8 @@
 import sanitizeHtml from 'sanitize-html';
 import moment from 'moment';
 
-import Account from '../models/Account';
-import client from '../config/plaid';
+import Account from '../models/Account.js';
+import client from '../config/plaid.js';
 
 /**
  * @route POST /api/plaid/accounts
